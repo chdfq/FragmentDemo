@@ -10,6 +10,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //TextView选择：
+    //1. 先将所有TextView的取消选择
+    //2. 根据点击的id进行选择
+
+    //Fragment显示：
+    //1. 隐藏所有已创建的Fragment
+    //2. 检查所选择的TextView对应的Fragment是否已经创建，如果未生成则创建，如果创建则将隐藏的该Fragment显示
+
     //UI Object
     private TextView mTvHome;
     private TextView mTvNotes;
@@ -26,9 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
         initObject();
-        mTvHome.performClick();
+        mTvHome.performClick(); //模拟一次点击，既进去后选择第一项
     }
 
+    //UI组件初始化与事件绑定
     private void initObject() {
         mTvHome = findViewById(R.id.tv_home);
         mTvNotes = findViewById(R.id.tv_notes);
@@ -41,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvSettings.setOnClickListener(this);
     }
 
+    //重置所有TextView的选中状态
     private void setUnselected() {
         mTvHome.setSelected(false);
         mTvNotes.setSelected(false);
@@ -48,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvSettings.setSelected(false);
     }
 
+    //隐藏所有Fragment
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {
         if (mFgHome != null) {
             fragmentTransaction.hide(mFgHome);
